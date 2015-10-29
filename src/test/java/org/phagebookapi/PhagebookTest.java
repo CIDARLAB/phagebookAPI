@@ -79,7 +79,7 @@ public class PhagebookTest {
         newUserMap2.put("text", testResult2);
         
         Object res1 = clothoObject.createStatus(newUserMap1);
-       // clothoObject.logout();
+        // clothoObject.logout();
         Object res2 = clothoObject.createStatus(newUserMap2);
        // clothoObject.logout();
         

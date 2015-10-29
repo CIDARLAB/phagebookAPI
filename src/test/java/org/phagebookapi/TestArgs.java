@@ -11,6 +11,6 @@ package org.phagebookapi;
  */
 public class TestArgs {
     //public static final String clothoRemoteAddress = "wss://54.68.8.207:8443/websocket";
-    public static final String phagebookLocalAddress = "ws://localhost:9090/phagebook/";
+    public static final String phagebookLocalAddress = "ws://localhost:9090/websocket";
     
 }
