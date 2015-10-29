@@ -64,6 +64,9 @@ public class PhagebookTest {
         username2 = "testUser2" + System.currentTimeMillis();
         password = "testPassword";
         personID1 = "testID1";
+        projectID = "phagebookProject";
+        testResult1= "ReggaeSharkDNA";
+        testResult2= "created pBad-pTet";
         
         Map newUserMap1 = new HashMap();
         newUserMap1.put("username", username1);
@@ -77,6 +80,7 @@ public class PhagebookTest {
         newUserMap2.put("password", password);
         newUserMap2.put("personID", personID2);
         newUserMap2.put("text", testResult2);
+        newUserMap2.put("projectID", projectID);
         
         Object res1 = clothoObject.createStatus(newUserMap1);
         // clothoObject.logout();
