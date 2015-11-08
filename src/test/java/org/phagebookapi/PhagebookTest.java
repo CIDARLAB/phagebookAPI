@@ -6,14 +6,20 @@
 
 package org.phagebookapi;
 
+import java.io.UnsupportedEncodingException;
 import org.phagebookapi.Phagebook;
 import org.phagebookapi.PhagebookConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.clothoapi.clotho3javaapi.Clotho;
+import org.clothoapi.clotho3javaapi.ClothoConnection;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -55,44 +61,65 @@ public class PhagebookTest {
     @After
     public void tearDown() {
     }
-
+    
     @Test
-    public void createStatus(){
+    public void login(){
         PhagebookConnection conn = new PhagebookConnection(TestArgs.phagebookLocalAddress);
-        Phagebook clothoObject = new Phagebook(conn);
-        username1 = "testUser1" + System.currentTimeMillis();
-        username2 = "testUser2" + System.currentTimeMillis();
-        password = "testPassword";
-        personID1 = "testID1";
-        projectID = "phagebookProject";
-        testResult1= "ReggaeSharkDNA";
-        testResult2= "created pBad-pTet";
-        
-        Map newUserMap1 = new HashMap();
-        newUserMap1.put("username", username1);
-        newUserMap1.put("password", password);
-        newUserMap1.put("personID", personID1);
-        newUserMap1.put("text", testResult1);
-        newUserMap1.put("projectID", projectID);
-        
-        Map newUserMap2 = new HashMap();
-        newUserMap2.put("username", username2);
-        newUserMap2.put("password", password);
-        newUserMap2.put("personID", personID2);
-        newUserMap2.put("text", testResult2);
-        newUserMap2.put("projectID", projectID);
-        
-        Object res1 = clothoObject.createStatus(newUserMap1);
-        // clothoObject.logout();
-        Object res2 = clothoObject.createStatus(newUserMap2);
-       // clothoObject.logout();
+        Phagebook phagebookObject = new Phagebook(conn);
+        ClothoConnection connect = new ClothoConnection(TestArgs.clothoLocation);
+        Clotho clothoObject = new Clotho(connect);
+        Map newUserMap = new HashMap();
+        newUserMap.put("username", "kmlewis");
+        newUserMap.put("password", "abc");
+        clothoObject.createUser(newUserMap);
+        Map res1 = (Map)phagebookObject.login(newUserMap);
         
         System.out.println("Result 1 ::" + res1.toString());
-        System.out.println("Result 2 ::" + res2.toString());
-        
-        
-        conn.closeConnection();
+
     }
+    
+    
+    public void testbalahdasd(){
+        
+    }
+
+//    @Test
+//    public void createStatus(){
+//        PhagebookConnection conn = new PhagebookConnection(TestArgs.phagebookLocalAddress);
+//        Phagebook phagebookObject = new Phagebook(conn);
+//        username1 = "testUser1" + System.currentTimeMillis();
+//        username2 = "testUser2" + System.currentTimeMillis();
+//        password = "testPassword";
+//        personID1 = "testID1";
+//        projectID = "phagebookProject";
+//        testResult1= "ReggaeSharkDNA";
+//        testResult2= "created pBad-pTet";
+//        
+//        Map newUserMap1 = new HashMap();
+//        newUserMap1.put("username", username1);
+//        newUserMap1.put("password", password);
+//        newUserMap1.put("personID", personID1);
+//        newUserMap1.put("text", testResult1);
+//        newUserMap1.put("projectID", projectID);
+//        
+//        Map newUserMap2 = new HashMap();
+//        newUserMap2.put("username", username2);
+//        newUserMap2.put("password", password);
+//        newUserMap2.put("personID", personID2);
+//        newUserMap2.put("text", testResult2);
+//        newUserMap2.put("projectID", projectID);
+//        
+//        Object res1 = phagebookObject.createStatus(newUserMap1);
+//        // clothoObject.logout();
+//        Object res2 = phagebookObject.createStatus(newUserMap2);
+//       // clothoObject.logout();
+//        
+//        System.out.println("Result 1 ::" + res1.toString());
+//        System.out.println("Result 2 ::" + res2.toString());
+//        
+//        
+//        conn.closeConnection();
+//    }
 
 //
 //    @Test
@@ -116,10 +143,10 @@ public class PhagebookTest {
 //        
 //        Object result = clothoObject.create(createPart);
 //        System.out.println("FROM CLOTHO!! "+result);
-//        Map map = new HashMap();
-//        map.put("id",id);
+//        Map personMap = new HashMap();
+//        personMap.put("id",id);
 //        
-//        Object ret = clothoObject.queryOne(map);
+//        Object ret = clothoObject.queryOne(personMap);
 //        assertEquals(((JSONObject)ret).get("name").toString(),"createdPart");
 //        assertEquals(((JSONObject)ret).get("id").toString(),id);
 //        assertEquals(((JSONObject)ret).get("schema").toString(),"org.clothocad.testapi");
@@ -165,10 +192,10 @@ public class PhagebookTest {
 //        
 //        clothoObject.createAll(createAllMap);
 //        
-//        Map map = new HashMap();
-//        map.put("name","createdPartQuery");
+//        Map personMap = new HashMap();
+//        personMap.put("name","createdPartQuery");
 //        
-//        Object ret = clothoObject.query(map);
+//        Object ret = clothoObject.query(personMap);
 //        assertEquals(((JSONObject)((JSONArray)ret).get(0)).get("id").toString(),id1);
 //        assertEquals(((JSONObject)((JSONArray)ret).get(1)).get("id").toString(),id2);
 //        assertEquals(((JSONObject)((JSONArray)ret).get(0)).get("name").toString(),"createdPartQuery");

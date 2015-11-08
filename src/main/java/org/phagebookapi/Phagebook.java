@@ -53,15 +53,61 @@ public class Phagebook implements MessageListener
         return reqId;
     }
     
-    public Object createUser(String username,String password){
-        Map createUserMap = new HashMap();
-        createUserMap.put("username", username);
-        createUserMap.put("password", password);
-        return createStatus(createUserMap);
-    }
+//    public Object createUser(String username,String password){
+//        Map createUserMap = new HashMap();
+//        createUserMap.put("username", username);
+//        createUserMap.put("password", password);
+//        return login(createUserMap);
+//    }
     
-    public Object createStatus(Map map) 
-    {
+    public Object login(Map map){
+        JSONObject resultObject = null;
+        getRequestId();
+        channel = Channel.login;
+        received = false;
+        successfulResult = false;
+        try {
+            StringWriter mapStringWriter = new StringWriter();
+            JSONValue.writeJSONString(map, mapStringWriter);
+            String mapText = mapStringWriter.toString();
+            //System.out.println(jsonText);
+            requestId = getRequestId();
+            Map createUserMap = new HashMap();
+            createUserMap.put("channel", channel.toString());
+            createUserMap.put("data", map);
+            createUserMap.put("requestId", requestId);
+            StringWriter queryStringWriter = new StringWriter();
+            JSONValue.writeJSONString(createUserMap, queryStringWriter);
+            String queryString = queryStringWriter.toString();
+            long startTime = System.currentTimeMillis();
+            long elapsedTime = 0;
+            connection.sendMessage(queryString);
+            while((!received) && (elapsedTime < Args.maxTimeOut))
+            {
+                System.out.print("");
+                elapsedTime = (System.currentTimeMillis() - startTime)/1000;
+            }
+            if(elapsedTime >= 10)
+            {
+                System.out.println("System time out. Please check your Clotho Connection");
+            }
+            received = false;
+            
+            if(successfulResult)
+            {
+                resultObject = JSONObject.fromObject(receivedObject);
+            }
+            return resultObject;
+            
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Phagebook.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+        }
+    
+    
+    public Object createStatus(Map map){
         JSONObject resultObject = null;
         getRequestId();
         channel = Channel.createStatus;
@@ -107,6 +153,7 @@ public class Phagebook implements MessageListener
         }
         return null;
     }
+
     
     
     @Override

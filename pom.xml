@@ -67,6 +67,12 @@
             <version>4.11</version>
             <type>jar</type>
         </dependency>
+         <dependency>
+            <groupId>org.clothocad</groupId>
+            <artifactId>Clotho3JavaAPI</artifactId>
+            <version>3.0-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
         <!--
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -97,6 +103,13 @@
             <version>1.0</version>
             <scope>test</scope>
             <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.clothocad</groupId>
+            <artifactId>Phagebook</artifactId>
+            <version>1.0</version>
+            <scope>test</scope>
+            <type>war</type>
         </dependency>
     </dependencies>
     
