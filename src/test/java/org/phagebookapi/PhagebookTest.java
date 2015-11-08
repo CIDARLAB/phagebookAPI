@@ -66,12 +66,12 @@ public class PhagebookTest {
     public void login(){
         PhagebookConnection conn = new PhagebookConnection(TestArgs.phagebookLocalAddress);
         Phagebook phagebookObject = new Phagebook(conn);
-        ClothoConnection connect = new ClothoConnection(TestArgs.clothoLocation);
-        Clotho clothoObject = new Clotho(connect);
+       // ClothoConnection connect = new ClothoConnection(TestArgs.clothoLocation);
+       // Clotho clothoObject = new Clotho(connect);
         Map newUserMap = new HashMap();
         newUserMap.put("username", "kmlewis");
         newUserMap.put("password", "abc");
-        clothoObject.createUser(newUserMap);
+        //clothoObject.createUser(newUserMap);
         Map res1 = (Map)phagebookObject.login(newUserMap);
         
         System.out.println("Result 1 ::" + res1.toString());
