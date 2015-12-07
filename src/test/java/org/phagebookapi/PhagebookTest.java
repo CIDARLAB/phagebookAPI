@@ -41,6 +41,7 @@ public class PhagebookTest {
     private static String testResult1;
     private static String testResult2;
     private static String projectID;
+    private static Map res1 = new HashMap();
     public PhagebookTest() {
     }
     
@@ -72,9 +73,10 @@ public class PhagebookTest {
         newUserMap.put("username", "kmlewis");
         newUserMap.put("password", "abc");
         //clothoObject.createUser(newUserMap);
-        Map res1 = (Map)phagebookObject.login(newUserMap);
+        res1 = (Map)phagebookObject.login(newUserMap);
         
         System.out.println("Result 1 ::" + res1.toString());
+        conn.closeConnection();
 
     }
     
@@ -83,10 +85,31 @@ public class PhagebookTest {
         
     }
 
-//    @Test
-//    public void createStatus(){
-//        PhagebookConnection conn = new PhagebookConnection(TestArgs.phagebookLocalAddress);
-//        Phagebook phagebookObject = new Phagebook(conn);
+    @Test
+    public void createStatus(){
+        PhagebookConnection conn = new PhagebookConnection(TestArgs.phagebookLocalAddress);
+        Phagebook phagebookObject = new Phagebook(conn);
+        
+        testResult1= "ReggaeSharkDNA";
+        
+        Map newUserMap1 = new HashMap();
+        newUserMap1.put("text", testResult1);
+        //JSONObject userObject = new JSONObject();
+        Map userObject = new HashMap();
+        System.out.println("Checkpoint1");
+        //System.out.print("res1::" + res1);
+        userObject = (Map) res1.get("personObject");
+       // System.out.println("res1 data ::" + userObject);
+        if(userObject.containsKey("id")){
+            String userID = (String) userObject.get("id");
+            System.out.println("res1 data ::" + userObject);
+            newUserMap1.put("personID", userID);
+            System.out.println("Added personID to newUserMap1");
+            
+        }
+     
+        Map res2 = (Map)phagebookObject.createStatus(newUserMap1);
+        System.out.println("Result 2 ::" + res2.toString());
 //        username1 = "testUser1" + System.currentTimeMillis();
 //        username2 = "testUser2" + System.currentTimeMillis();
 //        password = "testPassword";
@@ -118,8 +141,8 @@ public class PhagebookTest {
 //        System.out.println("Result 2 ::" + res2.toString());
 //        
 //        
-//        conn.closeConnection();
-//    }
+        conn.closeConnection();
+    }
 
 //
 //    @Test

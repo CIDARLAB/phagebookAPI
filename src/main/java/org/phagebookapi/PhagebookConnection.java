@@ -23,8 +23,8 @@ import org.eclipse.jetty.websocket.WebSocketClientFactory;
  */
 @Slf4j
 public class PhagebookConnection {
-    private static WebSocketClientFactory factory;
-    public static PhagebookWebSocket phagebookSocket;
+    private WebSocketClientFactory factory;
+    public PhagebookWebSocket phagebookSocket;
     private Future fut;
     
     
