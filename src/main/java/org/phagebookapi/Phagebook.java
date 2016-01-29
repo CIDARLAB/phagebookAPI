@@ -9,12 +9,10 @@ package org.phagebookapi;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lombok.extern.slf4j.Slf4j;
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.eclipse.jetty.websocket.WebSocket;
 import org.json.simple.JSONValue;
@@ -53,16 +51,9 @@ public class Phagebook implements MessageListener
         return reqId;
     }
     
-//    public Object createUser(String username,String password){
-//        Map createUserMap = new HashMap();
-//        createUserMap.put("username", username);
-//        createUserMap.put("password", password);
-//        return login(createUserMap);
-//    }
-    
+   
     public Object login(Map map){
         JSONObject resultObject = null;
-        //getRequestId();
         channel = Channel.login;
         received = false;
         successfulResult = false;
@@ -79,6 +70,7 @@ public class Phagebook implements MessageListener
             
             long startTime = System.currentTimeMillis();
             long elapsedTime = 0;
+            
             connection.sendMessage(queryString);
             while((!received) && (elapsedTime < Args.maxTimeOut))
             {
@@ -93,7 +85,7 @@ public class Phagebook implements MessageListener
             
             if(successfulResult)
             {
-                resultObject = JSONObject.fromObject(receivedObject);
+                resultObject = JSONObject.fromObject(receivedObject); //Should probably not be a JSON object..
             }
             return resultObject;
             
@@ -107,7 +99,6 @@ public class Phagebook implements MessageListener
     
     public Object createStatus(Map map){
         JSONObject resultObject = null;
-        getRequestId();
         channel = Channel.createStatus;
         received = false;
         successfulResult = false;
@@ -121,6 +112,7 @@ public class Phagebook implements MessageListener
             StringWriter queryStringWriter = new StringWriter();
             JSONValue.writeJSONString(createUserMap, queryStringWriter);
             String queryString = queryStringWriter.toString();
+            
             long startTime = System.currentTimeMillis();
             long elapsedTime = 0;
             connection.sendMessage(queryString);
@@ -129,7 +121,7 @@ public class Phagebook implements MessageListener
                 System.out.print("");
                 elapsedTime = (System.currentTimeMillis() - startTime)/1000;
             }
-            if(elapsedTime >= 10)
+            if(elapsedTime >= Args.maxTimeOut)
             {
                 System.out.println("System time out. Please check your Clotho Connection");
             }
@@ -137,7 +129,7 @@ public class Phagebook implements MessageListener
             
             if(successfulResult)
             {
-                resultObject = JSONObject.fromObject(receivedObject);
+                resultObject = JSONObject.fromObject(receivedObject); //Should probably not be a JSON object..
             }
             return resultObject;
             
@@ -155,28 +147,11 @@ public class Phagebook implements MessageListener
     {
         String message = event.getMessage();
         String nullString = null;
-        //System.out.println("Th    is is a message :" + message);
         JSONObject messageObject = JSONObject.fromObject(message);
         try
         {
             if (this.requestId.equals(messageObject.get("requestId").toString())) 
             {
-                /*if (messageObject.get("channel").equals("say")) 
-                {
-
-                    JSONObject dataObject = JSONObject.fromObject(messageObject.get("data"));
-                    if (dataObject.get("text").equals(nullString)) 
-                    {
-                        System.out.println("No results found!");
-                        received = true;
-                        receivedObject = messageObject.get("data");
-
-                    } 
-                    else 
-                    {
-                        System.out.println(dataObject.get("text"));
-                    }
-                }*/
                 if (messageObject.get("channel").equals(this.channel.toString())) 
                 {
                     successfulResult = true;

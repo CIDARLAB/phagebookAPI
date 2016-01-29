@@ -22,7 +22,6 @@ public class OnMessageEvent extends EventObject {
         _serverMessage = serverMessage;
     }
     
-    
     public String getMessage(){
         return _serverMessage;
     }

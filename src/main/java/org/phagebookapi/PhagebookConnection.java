@@ -8,7 +8,6 @@ package org.phagebookapi;
 
 import java.net.URI;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lombok.Getter;
@@ -44,7 +43,6 @@ public class PhagebookConnection {
             fut = wsClient.open(uri, phagebookSocket); //connection between wsClient to the server endpoint
             
             serverConnection = (WebSocket.Connection) fut.get();
-//                    .get(10, TimeUnit.SECONDS);
             
         } catch (Exception ex) {
             Logger.getLogger(PhagebookConnection.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,14 +65,12 @@ public class PhagebookConnection {
             fut = wsClient.open(uri, phagebookSocket);
             
             serverConnection = (WebSocket.Connection) fut.get();
-//                    .get(10, TimeUnit.SECONDS);
             
         } catch (Exception ex) {
             Logger.getLogger(PhagebookConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     
-    }
-    
+    }    
     
     public void closeConnection()
     {
