@@ -80,11 +80,6 @@ public class PhagebookTest {
 
     }
     
-    
-    public void testbalahdasd(){
-        
-    }
-
     @Test
     public void createStatus(){
         PhagebookConnection conn = new PhagebookConnection(TestArgs.phagebookLocalAddress);

@@ -34,14 +34,14 @@ public class PhagebookConnection {
     public PhagebookConnection(String clothoURI)
     {
         factory = new WebSocketClientFactory();
-        phagebookSocket = new PhagebookWebSocket();
+        phagebookSocket = new PhagebookWebSocket(); //connection protocol - way of sending informtation
         
         try {
-            URI uri = new URI(clothoURI);
+            URI uri = new URI(clothoURI); //address of the server
             factory.start();
             WebSocketClient wsClient = factory.newWebSocketClient();
             wsClient.setMaxTextMessageSize(Args.maxTextSize);
-            fut = wsClient.open(uri, phagebookSocket);
+            fut = wsClient.open(uri, phagebookSocket); //connection between wsClient to the server endpoint
             
             serverConnection = (WebSocket.Connection) fut.get();
 //                    .get(10, TimeUnit.SECONDS);

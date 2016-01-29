@@ -62,23 +62,21 @@ public class Phagebook implements MessageListener
     
     public Object login(Map map){
         JSONObject resultObject = null;
-        getRequestId();
+        //getRequestId();
         channel = Channel.login;
         received = false;
         successfulResult = false;
         try {
-            StringWriter mapStringWriter = new StringWriter();
-            JSONValue.writeJSONString(map, mapStringWriter);
-            String mapText = mapStringWriter.toString();
-            //System.out.println(jsonText);
             requestId = getRequestId();
             Map createUserMap = new HashMap();
             createUserMap.put("channel", channel.toString());
             createUserMap.put("data", map);
             createUserMap.put("requestId", requestId);
-            StringWriter queryStringWriter = new StringWriter();
+            
+            StringWriter queryStringWriter = new StringWriter(); //converting to string
             JSONValue.writeJSONString(createUserMap, queryStringWriter);
             String queryString = queryStringWriter.toString();
+            
             long startTime = System.currentTimeMillis();
             long elapsedTime = 0;
             connection.sendMessage(queryString);
@@ -87,9 +85,9 @@ public class Phagebook implements MessageListener
                 System.out.print("");
                 elapsedTime = (System.currentTimeMillis() - startTime)/1000;
             }
-            if(elapsedTime >= 10)
+            if(elapsedTime >= Args.maxTimeOut)
             {
-                System.out.println("System time out. Please check your Clotho Connection");
+                System.out.println("System time out. Please check your Phagebook Connection");
             }
             received = false;
             
@@ -114,10 +112,6 @@ public class Phagebook implements MessageListener
         received = false;
         successfulResult = false;
         try {
-            StringWriter mapStringWriter = new StringWriter();
-            JSONValue.writeJSONString(map, mapStringWriter);
-            String mapText = mapStringWriter.toString();
-            //System.out.println(jsonText);
             requestId = getRequestId();
             Map createUserMap = new HashMap();
             createUserMap.put("channel", channel.toString());
@@ -161,13 +155,13 @@ public class Phagebook implements MessageListener
     {
         String message = event.getMessage();
         String nullString = null;
-        //System.out.println("This is a message :" + message);
+        //System.out.println("Th    is is a message :" + message);
         JSONObject messageObject = JSONObject.fromObject(message);
         try
         {
             if (this.requestId.equals(messageObject.get("requestId").toString())) 
             {
-                if (messageObject.get("channel").equals("say")) 
+                /*if (messageObject.get("channel").equals("say")) 
                 {
 
                     JSONObject dataObject = JSONObject.fromObject(messageObject.get("data"));
@@ -182,7 +176,7 @@ public class Phagebook implements MessageListener
                     {
                         System.out.println(dataObject.get("text"));
                     }
-                }
+                }*/
                 if (messageObject.get("channel").equals(this.channel.toString())) 
                 {
                     successfulResult = true;
