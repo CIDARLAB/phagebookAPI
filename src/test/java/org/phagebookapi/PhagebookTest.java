@@ -42,7 +42,7 @@ public class PhagebookTest {
     private static String testResult2;
     private static String projectID;
     private static Map res1 = new HashMap();
-    public PhagebookTest() {
+        public PhagebookTest() {
     }
     
     @BeforeClass
@@ -67,13 +67,16 @@ public class PhagebookTest {
     public void login(){
         PhagebookConnection conn = new PhagebookConnection(TestArgs.phagebookLocalAddress);
         Phagebook phagebookObject = new Phagebook(conn);
-       // ClothoConnection connect = new ClothoConnection(TestArgs.clothoLocation);
-       // Clotho clothoObject = new Clotho(connect);
+        ClothoConnection connect = new ClothoConnection(TestArgs.clothoLocation);
+        Clotho clothoObject = new Clotho(connect);
         Map newUserMap = new HashMap();
-        newUserMap.put("username", "kmlewis");
-        newUserMap.put("password", "abc");
-        //clothoObject.createUser(newUserMap);
-        res1 = (Map)phagebookObject.login(newUserMap);
+        /********************* PUT YOUR OWN USERNAME (not email) AND PW **************************/
+        // This test will fail if you do not use an existing user because 
+        // the log in will fail (because the user does not exist).
+        newUserMap.put("username", "asdf");
+        newUserMap.put("password", "12345");
+        clothoObject.createUser(newUserMap);
+        res1 = (Map) phagebookObject.login(newUserMap);
         
         System.out.println("Result 1 ::" + res1.toString());
         conn.closeConnection();

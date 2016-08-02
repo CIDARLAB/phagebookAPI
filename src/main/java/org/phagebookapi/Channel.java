@@ -11,24 +11,11 @@ package org.phagebookapi;
  * @author prashantvaidyanathan
  */
 public enum Channel {
-  /*
-    createStatus (show on project newsfeed & profile?),
-sendResult,
-getData?,
-send part/sample,
-send protocol,
-add to notebook entry?
-    */
-    createStatus,
-    updateOrderStatus,
-    addToOrder,
-    createProject,
-    addFriend,
-    addTeamMember,
-    login,
-    sendResult,
-    sendSample,
-    sendProtocol,
-    addEntry
-
+    CREATE_STATUS,
+    CHANGE_ORDERING_STATUS,
+    CREATE_PROJECT_STATUS,
+    GET_PROJECTS,
+    GET_ORDERS,
+    GET_PROJECT,
+    GET_ORDER
 }

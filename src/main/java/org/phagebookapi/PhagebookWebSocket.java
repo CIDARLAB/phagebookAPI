@@ -61,7 +61,7 @@ public class PhagebookWebSocket  implements WebSocket.OnTextMessage
     
     @Override
     public void onOpen(Connection connection) {
-        System.out.println("Connection has been established!\nConnection id : "+connection);
+        System.out.println("Client connection has been established!\nConnection id : "+connection);
         /*try {
             String helloString = "{\"channel\":\"say\",\"data\":\"Establish Connection!\",\"requestId\":1}";
             connection.sendMessage(helloString);
@@ -73,7 +73,7 @@ public class PhagebookWebSocket  implements WebSocket.OnTextMessage
 
     @Override
     public void onClose(int i, String string) {
-        System.out.println("Connection closed.\nConnection Id : "+i+"\nClosing Message : "+string);
+        System.out.println("Client connection closed.\nConnection Id : "+i+"\nClosing Message : "+string);
     }
     
 }

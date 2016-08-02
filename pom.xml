@@ -104,13 +104,13 @@
             <scope>test</scope>
             <type>jar</type>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>org.clothocad</groupId>
             <artifactId>Phagebook</artifactId>
             <version>1.0</version>
             <scope>test</scope>
             <type>war</type>
-        </dependency>
+        </dependency>-->
     </dependencies>
     
     
