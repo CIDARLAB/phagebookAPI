@@ -62,52 +62,52 @@ public class PhagebookTest {
     @After
     public void tearDown() {
     }
-    
-    @Test
-    public void login(){
-        PhagebookConnection conn = new PhagebookConnection(TestArgs.phagebookLocalAddress);
-        Phagebook phagebookObject = new Phagebook(conn);
-        ClothoConnection connect = new ClothoConnection(TestArgs.clothoLocation);
-        Clotho clothoObject = new Clotho(connect);
-        Map newUserMap = new HashMap();
-        /********************* PUT YOUR OWN USERNAME (not email) AND PW **************************/
-        // This test will fail if you do not use an existing user because 
-        // the log in will fail (because the user does not exist).
-        newUserMap.put("username", "asdf");
-        newUserMap.put("password", "12345");
-        clothoObject.createUser(newUserMap);
-        res1 = (Map) phagebookObject.login(newUserMap);
-        
-        System.out.println("Result 1 ::" + res1.toString());
-        conn.closeConnection();
-
-    }
-    
-    @Test
-    public void createStatus(){
-        PhagebookConnection conn = new PhagebookConnection(TestArgs.phagebookLocalAddress);
-        Phagebook phagebookObject = new Phagebook(conn);
-        
-        testResult1= "ReggaeSharkDNA";
-        
-        Map newUserMap1 = new HashMap();
-        newUserMap1.put("text", testResult1);
-        //JSONObject userObject = new JSONObject();
-        Map userObject = new HashMap();
-        System.out.println("Checkpoint1");
-        //System.out.print("res1::" + res1);
-        userObject = (Map) res1.get("personObject");
-       // System.out.println("res1 data ::" + userObject);
-        if(userObject.containsKey("id")){
-            String userID = (String) userObject.get("id");
-            System.out.println("res1 data ::" + userObject);
-            newUserMap1.put("personID", userID);
-            System.out.println("Added personID to newUserMap1");
-            
-        }
-     
-        Map res2 = (Map)phagebookObject.createStatus(newUserMap1);
-        System.out.println("Result 2 ::" + res2.toString());
+//    
+//    @Test
+//    public void login(){
+//        PhagebookConnection conn = new PhagebookConnection(TestArgs.phagebookLocalAddress);
+//        Phagebook phagebookObject = new Phagebook(conn);
+//        ClothoConnection connect = new ClothoConnection(TestArgs.clothoLocation);
+//        Clotho clothoObject = new Clotho(connect);
+//        Map newUserMap = new HashMap();
+//        /********************* PUT YOUR OWN USERNAME (not email) AND PW **************************/
+//        // This test will fail if you do not use an existing user because 
+//        // the log in will fail (because the user does not exist).
+//        newUserMap.put("username", "asdf");
+//        newUserMap.put("password", "12345");
+//        clothoObject.createUser(newUserMap);
+//        res1 = (Map) phagebookObject.login(newUserMap);
+//        
+//        System.out.println("Result 1 ::" + res1.toString());
+//        conn.closeConnection();
+//
+//    }
+//    
+//    @Test
+//    public void createStatus(){
+//        PhagebookConnection conn = new PhagebookConnection(TestArgs.phagebookLocalAddress);
+//        Phagebook phagebookObject = new Phagebook(conn);
+//        
+//        testResult1= "ReggaeSharkDNA";
+//        
+//        Map newUserMap1 = new HashMap();
+//        newUserMap1.put("text", testResult1);
+//        //JSONObject userObject = new JSONObject();
+//        Map userObject = new HashMap();
+//        System.out.println("Checkpoint1");
+//        //System.out.print("res1::" + res1);
+//        userObject = (Map) res1.get("personObject");
+//       // System.out.println("res1 data ::" + userObject);
+//        if(userObject.containsKey("id")){
+//            String userID = (String) userObject.get("id");
+//            System.out.println("res1 data ::" + userObject);
+//            newUserMap1.put("personID", userID);
+//            System.out.println("Added personID to newUserMap1");
+//            
+//        }
+//     
+//        Map res2 = (Map)phagebookObject.createStatus(newUserMap1);
+//        System.out.println("Result 2 ::" + res2.toString());
 //        username1 = "testUser1" + System.currentTimeMillis();
 //        username2 = "testUser2" + System.currentTimeMillis();
 //        password = "testPassword";
@@ -139,9 +139,9 @@ public class PhagebookTest {
 //        System.out.println("Result 2 ::" + res2.toString());
 //        
 //        
-        conn.closeConnection();
-    }
-
+//        conn.closeConnection();
+//    }
+//
 //
 //    @Test
 //    public void queryOne()
